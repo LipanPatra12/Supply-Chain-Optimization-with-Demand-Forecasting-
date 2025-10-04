@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Prediction App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f8f9fa;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+        input, select, button {
+            width: 95%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        button {
+            grid-column: span 2;
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .note {
+            text-align: center;
+            margin-top: 10px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Prediction Input Form</h2>
+        <form action="/predict" method="POST">
+
+            <!-- Categorical Input -->
+            <div>
+                <label for="Type">Type (a / b / c)</label>
+                <select name="Type" id="Type" required>
+                    <option value="a">a</option>
+                    <option value="b">b</option>
+                    <option value="c">c</option>
+                </select>
+            </div>
+
+            <!-- Numeric Inputs (19 floats) -->
+            {% for i in range(1, 20) %}
+            <div>
+                <label for="num{{i}}">Numeric Value {{i}}</label>
+                <input type="number" step="any" name="num{{i}}" id="num{{i}}" required>
+            </div>
+            {% endfor %}
+
+            <!-- Submit Button -->
+            <button type="submit">Predict</button>
+        </form>
+        <p class="note">Enter 19 numeric values and select one category (a/b/c).</p>
+    </div>
+</body>
+</html>
